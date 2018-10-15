@@ -6,11 +6,11 @@
  *
  *
  */
-#include <stdio.h>
+//#include <stdio.h>
 
-int[] insertionSort(int[] arr, int n){
-	return arr;
-}
+	//void insertionSort(int arr, int n){
+		//return arr;
+	//}
 
 
 
