@@ -4,5 +4,10 @@
  *  Created on: Oct 11, 2018
  *      Author: Keifer
  */
+int * performMergeSort(int * sample, int length);
+
+void merge(int originalArr[], int arr1Start, int arr1End, int arr2End);
+
+void mergeSort(int arr[], int startIndex, int endIndex);
 
 

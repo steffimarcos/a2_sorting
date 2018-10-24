@@ -11,31 +11,34 @@
 #include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include "MergeSort.h"
 
 //Function Prototypes
-void merge(int originalArr[], int arr1Start, int arr1End, int arr2End);
-void mergeSort(int arr[], int startIndex, int endIndex);
+//void merge(int originalArr[], int arr1Start, int arr1End, int arr2End);
+//int * mergeSort(int arr[], int startIndex, int endIndex);
 
 
 
 //Main
-int main(void) {
+int * performMergeSort(int * sample, int length) {
 
-	int sample[12] = {1, 5, 2, 4, 3, 1232, 23, 77,8, 2, 5, 25678};
+	//int sample[12] = {1, 5, 2, 4, 3, 1232, 23, 77,8, 2, 5, 25678};
+	/*
 	puts("Unsorted Sample: ");
-	for (int j=0; j<12; j++) {
+	for (int j=0; j<length; j++) {
 		printf("%d ", sample[j]);
 	}
+	*/
+	//puts("");
 
-	puts("");
+	mergeSort(sample, 0, length-1);
 
-	mergeSort(sample, 0, 11);
-
-	puts("\nSorted Sample: ");
-	for (int i=0; i<12; i++) {
-		printf("%d ", sample[i]);
-	}
-	puts("");
+	//puts("\nSorted Sample: ");
+	//for (int i=0; i<length; i++) {
+	//	printf("%d ", sample[i]);
+	//}
+	//puts("");
+	return sample;
 }
 
 //Merge: A function that merges two sorted subarrays into a single sorted array.
@@ -132,7 +135,7 @@ void merge(int originalArr[], int arr1Start, int arr1End, int arr2End) {
 
 //MergeSort: an algorithm that sorts an array in non-decreasing
 //order using the divide and conquer method
-void mergeSort(int arr[], int startIndex, int endIndex) {
+void mergeSort(int * arr, int startIndex, int endIndex) {
 
 	if (endIndex > startIndex) {
 
@@ -142,5 +145,7 @@ void mergeSort(int arr[], int startIndex, int endIndex) {
 		mergeSort(arr, arr1End+1, endIndex);
 		merge(arr, startIndex, arr1End, endIndex);
 	}
+
+
 
 }
