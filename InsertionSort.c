@@ -28,7 +28,7 @@
 
 				//at each index, find the place where it should be inserted
 				//test to see if the "to be inserted" value is greater
-									//than every other value in the "sorted portion"
+				//than every other value in the "sorted portion"
 				while(index>=0 && arr[index]>temp){
 
 
