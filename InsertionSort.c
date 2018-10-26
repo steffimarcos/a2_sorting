@@ -13,7 +13,7 @@
 	int * insertionSort(int * arr, int n){
 		int temp=0;
 		int index;
-		puts("unsorted array");
+		//puts("unsorted array");
 
 		if(arr == NULL || n == 1){
 			return arr;
@@ -31,12 +31,8 @@
 				//than every other value in the "sorted portion"
 				while(index>=0 && arr[index]>temp){
 
-
-
 					arr[index+1]=arr[index];
 					//printf("shifting %d at index %d to index %d\n",arr[index],index,(index+1));
-
-
 					//printf("inserting %d at index %d\n",temp,index );
 						//insert the new value
 					index--;

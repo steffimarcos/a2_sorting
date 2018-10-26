@@ -8,37 +8,88 @@
 
 
 #include <stdio.h>
-#include <ctype.h>
 #include <stdlib.h>
 #include <string.h>
+#include <time.h>
 #include "MergeSort.h"
 
 //Function Prototypes
 //void merge(int originalArr[], int arr1Start, int arr1End, int arr2End);
-//int * mergeSort(int arr[], int startIndex, int endIndex);
+//void mergeSort(int arr[], int startIndex, int endIndex);
+//int performMergeSort(int argc, char **argv);
 
 
 
 //Main
-int * performMergeSort(int * sample, int length) {
+void performMergeSort(int argc, char **argv) {
 
-	//int sample[12] = {1, 5, 2, 4, 3, 1232, 23, 77,8, 2, 5, 25678};
-	/*
-	puts("Unsorted Sample: ");
-	for (int j=0; j<length; j++) {
-		printf("%d ", sample[j]);
+	if (argc != 3) {
+
+		puts("USAGE: sorting [# of Numbers to Read] [File to Read From]");
+
+
+	} else {
+
+		int numOfTrials = 300;
+		int timeElapsedResultSet[numOfTrials];
+		int sum = 0;
+		double average = 0;
+
+		for (int trialCounter=0; trialCounter < numOfTrials; trialCounter++) {
+
+			FILE * inputFile = fopen(argv[2], "r");
+			FILE * outputFile = fopen("sortedOutput.txt", "w");
+			clock_t start;
+			double timeElapsed;
+
+
+			long numToRead = strtol(argv[1], NULL, 10);
+			if (inputFile == NULL) {
+				puts("ERROR: No input file provided or file does not exist.");
+				exit(1);
+			} else if (numToRead < 2 || numToRead > 800000) {
+				puts("The quantity of numbers to be read from the file must be between 2 and 800,000, inclusive.");
+				exit(2);
+			} else {
+				int inputArray[numToRead];
+				int numReadCounter = 0;
+				while (numReadCounter < numToRead) {
+
+					fscanf(inputFile, "%d", &inputArray[numReadCounter]);
+					numReadCounter++;
+				}
+
+				start = clock();
+				mergeSort(inputArray, 0, numToRead - 1);
+				timeElapsed = ((double)clock() - start);
+				timeElapsedResultSet[trialCounter] = timeElapsed;
+
+
+
+				for (int i=0; i<numToRead; i++) {
+					fprintf(outputFile,"%d\n", inputArray[i]);
+				}
+
+				puts("Input Sorted! See sortedOutput.txt in current directory.");
+
+			}
+
+			fclose(inputFile);
+			fclose(outputFile);
+
+		}
+
+		for (int i = 0; i < numOfTrials; i++) {
+			printf("%d ", timeElapsedResultSet[i]);
+			sum = sum + timeElapsedResultSet[i];
+		}
+		average = sum / numOfTrials;
+		puts("");
+		printf("%s%f\n", "Average: ", average);
+
 	}
-	*/
-	//puts("");
 
-	mergeSort(sample, 0, length-1);
 
-	//puts("\nSorted Sample: ");
-	//for (int i=0; i<length; i++) {
-	//	printf("%d ", sample[i]);
-	//}
-	//puts("");
-	return sample;
 }
 
 //Merge: A function that merges two sorted subarrays into a single sorted array.
@@ -52,31 +103,17 @@ void merge(int originalArr[], int arr1Start, int arr1End, int arr2End) {
 	int arr2Size = arr2End - arr1End;
 
 	//Creating two temporary arrays
-	int arr1[1000000];
-	int arr2[1000000];
+	int arr1[arr1Size];
+	int arr2[arr2Size];
 
 	//Loading data into temporary arrays from original array
 	for (int i = 0; i < arr1Size; i++) {
 		arr1[i] = originalArr[i + arr1Start];
 	}
 
-	puts("Calling Merge:");
-
-	for (int m = 0; m < arr1Size; m++) {
-		printf("%d ", arr1[m]);
-	}
-
-	puts("");
-
 	for (int j = 0; j < arr2Size ; j++) {
 		arr2[j] = originalArr[j + arr1End + 1];
 	}
-
-	for (int n = 0; n < arr2Size; n++) {
-		printf("%d ", arr2[n]);
-	}
-
-	puts("");
 
 	//Declaring and Initializing Retrieval Position Keepers and Insertion Position Keepers
 	int arr1Position = 0;
@@ -135,7 +172,7 @@ void merge(int originalArr[], int arr1Start, int arr1End, int arr2End) {
 
 //MergeSort: an algorithm that sorts an array in non-decreasing
 //order using the divide and conquer method
-void mergeSort(int * arr, int startIndex, int endIndex) {
+void mergeSort(int arr[], int startIndex, int endIndex) {
 
 	if (endIndex > startIndex) {
 
@@ -145,7 +182,5 @@ void mergeSort(int * arr, int startIndex, int endIndex) {
 		mergeSort(arr, arr1End+1, endIndex);
 		merge(arr, startIndex, arr1End, endIndex);
 	}
-
-
 
 }

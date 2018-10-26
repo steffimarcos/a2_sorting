@@ -11,7 +11,7 @@
 #include "InsertionSort.h"
 #include "MergeSort.h"
 
-int main( int argc, const char* argv[] ) {
+int main( int argc, char **argv ) {
 
 
 	puts("Welcome");
@@ -29,11 +29,8 @@ int main( int argc, const char* argv[] ) {
 
 	puts("\nMerge sort results: ");
 
-	int * mSResult = performMergeSort(test, 11);
+	int  mSResult = performMergeSort(3, argv);
 
-	for(int i = 0; i<11;i++){
-		printf("%d, ",mSResult[i]);
-	}
 
 	return 1;
 
