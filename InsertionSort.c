@@ -21,7 +21,7 @@
 
 			} else {
 
-				int numOfTrials = 300;
+				int numOfTrials = 10;
 				int timeElapsedResultSet[numOfTrials];
 				int sum = 0;
 				double average = 0;

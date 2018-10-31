@@ -30,7 +30,7 @@ void performMergeSort(int argc, char **argv) {
 
 	} else {
 
-		int numOfTrials = 300;
+		int numOfTrials = 30;
 		int timeElapsedResultSet[numOfTrials];
 		int sum = 0;
 		double average = 0;
