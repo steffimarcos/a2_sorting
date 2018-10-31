@@ -7,8 +7,80 @@
  *
  */
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <time.h>
 #include "InsertionSort.h"
 
+	void performInsertionSort(int argc, char **argv){
+
+		if (argc != 3) {
+
+				puts("USAGE: sorting [# of Numbers to Read] [File to Read From]");
+
+
+			} else {
+
+				int numOfTrials = 300;
+				int timeElapsedResultSet[numOfTrials];
+				int sum = 0;
+				double average = 0;
+
+				for (int trialCounter=0; trialCounter < numOfTrials; trialCounter++) {
+
+					FILE * inputFile = fopen(argv[2], "r");
+					FILE * outputFile = fopen("sortedOutput2.txt", "w");
+					clock_t start;
+					double timeElapsed;
+
+
+					long numToRead = strtol(argv[1], NULL, 10);
+					if (inputFile == NULL) {
+						puts("ERROR: No input file provided or file does not exist.");
+						exit(1);
+					} else if (numToRead < 2 || numToRead > 800000) {
+						puts("The quantity of numbers to be read from the file must be between 2 and 800,000, inclusive.");
+						exit(2);
+					} else {
+						int inputArray[numToRead];
+						int numReadCounter = 0;
+						while (numReadCounter < numToRead) {
+
+							fscanf(inputFile, "%d", &inputArray[numReadCounter]);
+							numReadCounter++;
+						}
+
+						start = clock();
+						insertionSort(inputArray, numToRead);
+						timeElapsed = ((double)clock() - start);
+						timeElapsedResultSet[trialCounter] = timeElapsed;
+
+
+
+						for (int i=0; i<numToRead; i++) {
+							fprintf(outputFile,"%d\n", inputArray[i]);
+						}
+
+						puts("Input Sorted with Insertion Sort! See sortedOutput.txt in current directory.");
+
+					}
+
+					fclose(inputFile);
+					fclose(outputFile);
+
+				}
+
+				for (int i = 0; i < numOfTrials; i++) {
+					printf("%d ", timeElapsedResultSet[i]);
+					sum = sum + timeElapsedResultSet[i];
+				}
+				average = sum / numOfTrials;
+				puts("");
+				printf("%s%f\n", "Average: ", average);
+
+			}
+
+	}
 
 	int * insertionSort(int * arr, int n){
 		int temp=0;
